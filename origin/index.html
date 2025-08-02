@@ -1,34 +1,904 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choyxona Samarqand - Haqiqiy Samarqandcha Osh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <meta property="og:title" content="Learn edge computing" />
-    <meta property="og:description" content="Learn how to code a compute app" />
-    
-    <title>Hello Compute!</title>
-    <script src="where.js" type="module"></script>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <location-indicator>This website is on the WEB 🌐</location-indicator>
-    <h1 class="origin">Hi origin!</h1>
-    <h1 class="edge">Hi edge!</h1>
-    <div class="avatar"></div>
-    <p class="origin">
-      This is the <a href="https://glitchdotcom.github.io/hello-origin">origin</a> version of a website for learning about Fastly Compute in a GitHub Codespace.
-    </p>
-    <p class="edge">
-      This is the <a href="https://hello-compute.edgecompute.app">edge</a> version of a website for learning about Fastly Compute in a GitHub Codespace.
-    </p>
-    <p>💡 Try a page that doesn't exist: <a href="ohno">ohno</a><br/>
-      🧪 Try some data the origin returns as JSON: <a href="data.json">/data.json</a>
-    </p>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Uzbek ornamental pattern */
+        .ornament-border {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e3f2fd' fill-opacity='0.3'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+.image-container {
+  width: 100%;
+  max-width: 500px; /* maksimal kenglik (ixtiyoriy) */
+  margin: 0 auto;
+}
+
+.responsive-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px; /* ixtiyoriy — yumaloq burchak */
+}
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #bbdefb;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M50 50c13.807 0 25-11.193 25-25S63.807 0 50 0 25 11.193 25 25s11.193 25 25 25zm0 25c13.807 0 25-11.193 25-25S63.807 50 50 50 25 61.193 25 75s11.193 25 25 25z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .plov-image-placeholder {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border: 3px dashed rgba(255,255,255,0.5);
+            border-radius: 15px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .plov-image-placeholder:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.8);
+        }
+
+        .plov-image-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .slogan {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin: 2rem 0;
+            color: #e3f2fd;
+        }
+
+        .order-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
+            background: linear-gradient(45deg, #f7931e, #ff6b35);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1976d2;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border-radius: 2px;
+        }
+
+        /* Menu Section */
+        .menu {
+            background: white;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #1976d2;
+        }
+
+        .menu-image-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border-bottom: 3px dashed #1976d2;
+        }
+
+        .menu-image-placeholder:hover {
+            background: linear-gradient(135deg, #bbdefb, #90caf9);
+        }
+
+        .menu-image-placeholder i {
+            font-size: 2.5rem;
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item h3 {
+            font-size: 1.4rem;
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Delivery Info Section */
+        .delivery-info {
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid #1976d2;
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: #1976d2;
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            color: #1976d2;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 3px dashed #1976d2;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .map-placeholder:hover {
+            background: linear-gradient(135deg, #bbdefb, #90caf9);
+        }
+
+        .map-placeholder i {
+            font-size: 3rem;
+            color: #1976d2;
+            margin-bottom: 1rem;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            background: white;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .review-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 4px solid #1976d2;
+        }
+
+        .review-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: #1976d2;
+            opacity: 0.3;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .reviewer-image {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .reviewer-info h4 {
+            color: #1976d2;
+            margin-bottom: 0.2rem;
+        }
+
+        .stars {
+            color: #ffc107;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #e3f2fd;
+        }
+
+        .contact-item h3 {
+            margin-bottom: 1rem;
+            color: #e3f2fd;
+        }
+
+        .telegram-btn {
+            display: inline-block;
+            background: #0088cc;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-btn:hover {
+            background: #006699;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .slogan {
+                font-size: 1.2rem;
+            }
+
+            .plov-image-placeholder {
+                height: 300px;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .order-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .plov-image-placeholder {
+                height: 250px;
+            }
+
+            .menu-image-placeholder {
+                height: 200px;
+            }
+        }
+
+        /* Font Awesome Icons */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">🏛️ Choyxona Samarqand</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Bosh sahifa</a></li>
+                    <li><a href="#menu">Menyu</a></li>
+                    <li><a href="#delivery">Yetkazib berish</a></li>
+                    <li><a href="#reviews">Sharhlar</a></li>
+                    <li><a href="#contact">Aloqa</a></li>
+                </ul>
+                <button class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Choyxona Samarqand</h1>
+            <p class="hero-subtitle">Haqiqiy Samarqandcha ta'mlar — endi sizning uyingizda!</p>
+            <div class="image-container">
+  <img src="osh.jpg" alt="Samarqandcha Plov" class="responsive-image">
+</div>
+                <i class="fas fa-camera"></i>
+               
+            </div>
+            
+            <p class="slogan">"Haqiqiy Samarqandcha osh — endi sizning uyingizda!"</p>
+            
+            <a href="tel:+998930780075" class="order-btn">
+                <i class="fas fa-phone"></i> Hoziroq buyurtma bering
+            </a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="section menu ornament-border">
+        <div class="container">
+            <h2 class="section-title">Bizning Menyumiz</h2>
+            
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('Samarqand oshi rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Samarqand Oshi</h3>
+                        <p>Haqiqiy Samarqandcha osh — piyoz, sabzi, go'sht va maxsus ziravorlar bilan tayyorlangan an'anaviy taom. Har bir donasi alohida ta'm beradi.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('Qovurilgan tovuq rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Qovurilgan Tovuq</h3>
+                        <p>Yumshoq va mazali qovurilgan tovuq, maxsus ziravorlar bilan tayyorlangan. Oila uchun eng yaxshi tanlov.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('KFC uslubidagi tovuq rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>KFC Uslubidagi Tovuq</h3>
+                        <p>Xrustkor qobiq bilan qoplangan tovuq, maxsus sir bilan tayyorlangan. Yoshlar uchun eng sevimli taom.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('Shurva rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Shurva</h3>
+                        <p>An'anaviy o'zbek sho'rvasi — go'sht, sabzavot va maxsus ziravorlar bilan boy ta'mli sho'rva.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('Lagmon rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Lagmon</h3>
+                        <p>Qo'lda tortilgan makaron, go'sht va sabzavotlar bilan tayyorlangan an'anaviy o'zbek taomi.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('Qovurilgan lagmon rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Qovurilgan Lagmon</h3>
+                        <p>Qovurilgan makaron, go'sht va sabzavotlar bilan maxsus usulda tayyorlangan mazali taom.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('Chuchvara rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Chuchvara</h3>
+                        <p>Kichik xamir ichiga go'sht solingan an'anaviy o'zbek taomi. Issiq sho'rva bilan xizmat qilinadi.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('Jarkob rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Jarkob</h3>
+                        <p>Go'sht va sabzavotlar bilan tayyorlangan an'anaviy o'zbek taomi. Boy ta'm va mazali hid.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-image-placeholder" onclick="alert('Tandir somsa rasmini yuklang')">
+                        <i class="fas fa-camera"></i>
+                        <p>Rasm yuklang</p>
+                    </div>
+                    <div class="menu-content">
+                        <h3>Tandir Somsa</h3>
+                        <p>Tandirda pishirilgan an'anaviy somsa — go'sht va piyoz bilan to'ldirilgan, xrustkor xamir bilan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Info Section -->
+    <section id="delivery" class="section delivery-info">
+        <div class="container">
+            <h2 class="section-title">Yetkazib Berish Ma'lumotlari</h2>
+            
+            <div class="delivery-grid">
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Ish Vaqti</h3>
+                    <p><strong>Har kuni:</strong><br>
+                    09:00 - 23:00<br><br>
+                    <strong>Yetkazib berish:</strong><br>
+                    10:00 - 22:30<br><br>
+                    <em>Bayram kunlari ham ishlaymiz!</em></p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Yetkazib Berish Hududlari</h3>
+                    <p><strong>Bepul yetkazib berish:</strong><br>
+                    • Toshkent shahri<br>
+                    • Chilonzor tumani<br>
+                    • Yunusobod tumani<br>
+                    • Shayxontohur tumani<br><br>
+                    <strong>Minimal buyurtma:</strong> 50,000 so'm</p>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Yetkazib Berish Vaqti</h3>
+                    <p><strong>Standart:</strong> 30-45 daqiqa<br>
+                    <strong>Tezkor:</strong> 20-30 daqiqa<br>
+                    (+10,000 so'm qo'shimcha)<br><br>
+                    <em>Band vaqtlarda biroz kechikishi mumkin</em></p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <h3 style="text-align: center; color: #1976d2; margin-bottom: 2rem;">Bizning Joylashuvimiz</h3>
+                <div class="map-placeholder" onclick="alert('Bu yerga restoran joylashuvi xaritasini yuklang')">
+                    <i class="fas fa-map"></i>
+                    <p>Xarita Rasmi</p>
+                    <small>Xaritani yuklash uchun bosing</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section reviews">
+        <div class="container">
+            <h2 class="section-title">Mijozlar Fikrlari</h2>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <p class="review-text">Haqiqatan ham ajoyib osh! Samarqandcha ta'mi bor, xuddi onamning qo'li bilan tayyorlangandek. Yetkazib berish ham tez va issiq holda keldi. Rahmat!</p>
+                    <div class="reviewer">
+                        <div class="reviewer-image" onclick="alert('Mijoz rasmini yuklang')">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Aziza Karimova</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <p class="review-text">Lagmon juda mazali edi! Makaron qo'lda tortilgan, go'sht yumshoq. Oilam bilan birga buyurtma qildik, hammaga yoqdi. Albatta yana buyurtma beramiz.</p>
+                    <div class="reviewer">
+                        <div class="reviewer-image" onclick="alert('Mijoz rasmini yuklang')">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Bobur Rahimov</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <p class="review-text">Tandir somsa ajoyib! Xrustkor xamir, ichidagi go'sht juda mazali. Narxi ham mos. Xizmat ko'rsatish darajasi yuqori. Tavsiya qilaman!</p>
+                    <div class="reviewer">
+                        <div class="reviewer-image" onclick="alert('Mijoz rasmini yuklang')">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Malika Tosheva</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <p class="review-text">Chuchvara va shurva buyurtma qildim. Ikkalasi ham juda mazali! Yetkazib berish vaqtida bo'ldi. Xodimlar juda xushmuomala. Rahmat sizlarga!</p>
+                    <div class="reviewer">
+                        <div class="reviewer-image" onclick="alert('Mijoz rasmini yuklang')">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="reviewer-info">
+                            <h4>Sardor Alimov</h4>
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Biz Bilan Bog'laning</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>Telefon</h3>
+                    <p><a href="tel:+998930780075" style="color: white; text-decoration: none;">+998 93 078 00 75</a></p>
+                    <p>Buyurtma berish uchun qo'ng'iroq qiling</p>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fab fa-telegram"></i>
+                    <h3>Telegram</h3>
+                    <p>Tezkor buyurtma berish uchun</p>
+                    <a href="https://t.me/choyxona_samarqand" class="telegram-btn">
+                        <i class="fab fa-telegram"></i> Telegram orqali buyurtma
+                    </a>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Manzil</h3>
+                    <p>Toshkent shahri<br>
+                    Chilonzor tumani<br>
+                    Bunyodkor ko'chasi, 12-uy</p>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Elektron Pochta</h3>
+                    <p>info@choyxona-samarqand.uz</p>
+                    <p>Takliflar va shikoyatlar uchun</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="tel:+998930780075" class="order-btn">
+                    <i class="fas fa-phone"></i> +998 93 078 00 75
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
-    <div>
-      <a class="remix" href="https://github.com/glitchdotcom/hello-compute">🚧 Get your own app</a>
-    </div>
+        <div class="container">
+            <p>&copy; 2024 Choyxona Samarqand. Barcha huquqlar himoyalangan.</p>
+            <p>Haqiqiy Samarqandcha ta'mlar — endi sizning uyingizda!</p>
+        </div>
     </footer>
-  </body>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(25, 118, 210, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #1976d2, #1565c0)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Add animation to menu items on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe menu items
+        document.querySelectorAll('.menu-item, .info-card, .review-card').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(item);
+        });
+
+        // Phone number click tracking
+        document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+            link.addEventListener('click', () => {
+                console.log('Phone call initiated: ' + link.href);
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'968a9f87f3a735b3',t:'MTc1NDEwNjc1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+ 
